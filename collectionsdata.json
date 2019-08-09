@@ -1,0 +1,51 @@
+{
+    "collection_names":[
+        {
+            "id":"1",
+            "name":"coffee",
+            "label":"Coffee shop"
+        },
+        {
+            "id":"2",
+            "name":"wineshops",
+            "label":"Wine Shops"
+        }
+    ],
+    "collections":{
+        "coffee":{
+            
+            "fields":[
+                {"id":"1", "name": "smell"}, 
+                {"id":"2", "name": "taste"}, 
+                {"id":"3", "name": "price"}
+            ],
+            "records":[
+                {
+                    "id":1,
+                    "data":{"1": "1", "2": "hello", "3": "£1.99"}
+                },
+                {
+                    "id":2,
+                    "data":{"1": "apples", "2": "coffee"}
+                }
+            ]
+        },
+        "wineshops":{
+            "fields":[
+                {"id":"1", "name": "smell"}, 
+                {"id":"2", "name": "price"}, 
+                {"id":"3", "name": "music"}
+            ],
+            "records":[
+                {
+                    "id":1,
+                    "data":{"1": "juicy", "2": "hello", "3": "none"}
+                },
+                {
+                    "id":2,
+                    "data":{"1": "bland", "2": "£10.99 per bottle"}
+                }
+            ]
+        }
+    }
+}
