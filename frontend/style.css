@@ -1,0 +1,64 @@
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
+#root {
+    max-width: 1200px;
+    margin: 0 auto;
+   }
+   
+   .container {
+    display: flex;
+    flex-wrap: wrap;
+   }
+   
+   .card {
+    margin: 1rem;
+    border: 1px solid gray;
+   }
+   
+   @media screen and (min-width: 600px) {
+    .card {
+      flex: 1 1 calc(50% - 2rem);
+    }
+   }
+   
+   @media screen and (min-width: 900px) {
+    .card {
+      flex: 1 1 calc(33% - 2rem);
+    }
+   }
+
+
+.collectionnamebox{
+  background-color: aqua;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.actions{
+  background-color: aquamarine;
+  margin: 10px;
+  padding:10px;
+  border: 10px white;
+  border-radius: 50px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
