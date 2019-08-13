@@ -19,10 +19,73 @@ func Read(filename string) Collections {
 	return (f)
 }
 
+func (col *Collections) Write(filename string) {
+	file, _ := json.MarshalIndent(col, "", " ")
+	_ = ioutil.WriteFile(filename, file, 0644)
+}
+
+func saveCollection(colname string, col Collection) {
+	current := Read(DATAFILE)
+	current.Data[colname] = col
+	current.Write(DATAFILE)
+}
+
 func (col *Collections) PullCollection(colname string) Collection {
 	return (col.Data[colname])
 }
 
 func (c *Collection) pullFields() []Field {
 	return (c.Fields)
+}
+
+func GetFields(colname string) []Field {
+	current := Read(DATAFILE)
+	coll := current.PullCollection(colname)
+	return (coll.pullFields())
+}
+
+func GetMeta() []CollectionMeta {
+	f := Read(DATAFILE)
+	return (f.Names())
+}
+
+func (c *Collection) addRecord(r Record) {
+	c.Records = append(c.Records, r)
+}
+
+func AddRecord(colname string, rec RecordReceive) {
+
+	current := Read(DATAFILE)
+	tgtCollection := current.PullCollection(colname)
+	tgtFields := tgtCollection.pullFields()
+
+	var newRecord Record
+	newRecord.ID = rec.ID
+
+	recData := make(map[string]string)
+	for _, v := range tgtFields {
+		ii, ok := rec.Data[v.Name]
+
+		if ok {
+			recData[v.ID] = ii
+		}
+
+	}
+
+	newRecord.Data = recData
+	tgtCollection.addRecord(newRecord)
+	saveCollection(colname, tgtCollection)
+}
+
+func UpdateFieldName(colname string, field Field) {
+	current := Read(DATAFILE)
+	coll := current.PullCollection(colname)
+	fields := coll.pullFields()
+	for i, f := range fields {
+		if f.ID == field.ID {
+			fields[i].Name = field.Name
+		}
+	}
+	coll.Fields = fields
+	saveCollection(colname, coll)
 }

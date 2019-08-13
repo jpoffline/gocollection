@@ -38,6 +38,26 @@ function CollectionNameBox(collection){
     return(div)
 }
 
+function FieldNameArea(name){
+    var divs = document.createElement("div");
+    divs.setAttribute('class', 'container');
+
+    var label = document.createElement("label")
+    label.setAttribute('for', name.name);
+    label.setAttribute('class', 'label')
+    label.innerHTML = name.name;
+
+    var div = document.createElement("input");
+    div.setAttribute('type', 'text');
+    div.setAttribute('id',  name.name);
+    div.setAttribute('value', name.name);
+    
+    divs.appendChild(label);
+    divs.appendChild(div);
+
+    return(divs)
+}
+
 function ShowCollectionNames(names){
     var divContainer = document.getElementById("collectionNameBoxes");
 
@@ -52,7 +72,19 @@ function ShowCollectionNames(names){
     divContainer.appendChild(divs);
 }
 
-function RouteRespond(route, callback){
+function ShowFieldNames(names){
+    
+    var divContainer = document.getElementById("selectedFieldNames");
+    var divs = document.createElement("div");
+    divs.setAttribute('class', 'container');
+    names.forEach(name => {
+        divs.appendChild(FieldNameArea(name));
+    })
+    divContainer.innerHTML = "";
+    divContainer.appendChild(divs);
+}
+
+function RouteRespondGet(route, callback){
     
         var request = new XMLHttpRequest();
         request.open('GET', urlRoot() + route, true);
@@ -67,10 +99,14 @@ function RouteRespond(route, callback){
 }
 
 function ShowCollectionTable(which='coffee'){
-    RouteRespond('/collection/' + which, toTable)
+    RouteRespondGet('/collection/' + which, toTable)
     document.getElementById("selectedCollectionName").innerHTML = which
 }
 
 function CollectionNames(){
-    RouteRespond('/collections', ShowCollectionNames)
+    RouteRespondGet('/collections', ShowCollectionNames)
+}
+
+function FieldNames(which = 'coffee'){
+    RouteRespondGet('/fields/' + which, ShowFieldNames)
 }

@@ -22,7 +22,7 @@ func (c *Collection) RecordsToTable() Table {
 			ii, ok := r.Data[id]
 			var item string
 			if ok {
-				item = ii.(string)
+				item = ii //.(string)
 			} else {
 				item = "NONE"
 			}

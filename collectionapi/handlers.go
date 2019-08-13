@@ -10,7 +10,10 @@ import (
 
 func HandleRequests() {
 	myRouter := mux.NewRouter().StrictSlash(true)
-	myRouter.HandleFunc("/collections", CollectionNames)
-	myRouter.HandleFunc("/collection/{collectionname}", ReturnCollectionAsTable)
+	myRouter.HandleFunc("/collections", CollectionNames).Methods("GET")
+	myRouter.HandleFunc("/fields/{collectionname}", ReturnFieldNames).Methods("GET")
+	myRouter.HandleFunc("/field/{collectionname}", UpdateFieldName).Methods("PATCH")
+	myRouter.HandleFunc("/collection/{collectionname}", ReturnCollectionAsTable).Methods("GET")
+	myRouter.HandleFunc("/collection/{collectionname}", AddRecordToCollection).Methods("POST")
 	log.Fatal(http.ListenAndServe(":10000", handlers.CORS()(myRouter)))
 }

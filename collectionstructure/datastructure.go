@@ -1,5 +1,7 @@
 package collectionstructure
 
+const DATAFILE = "collectionsdata.json"
+
 // Collections is the main collections data structure.
 type Collections struct {
 	CollectionNames []CollectionMeta      `json:"collection_names"`
@@ -20,8 +22,13 @@ type Field struct {
 
 // Record contains the data for a particular record.
 type Record struct {
-	ID   int                    `json:"id"`
-	Data map[string]interface{} `json:"data"`
+	ID   int               `json:"id"`
+	Data map[string]string `json:"data"`
+}
+
+type RecordReceive struct {
+	ID   int               `json:"id"`
+	Data map[string]string `json:"data"`
 }
 
 // CollectionMeta contains the meta data for a collection.

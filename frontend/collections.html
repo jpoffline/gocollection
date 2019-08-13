@@ -10,13 +10,18 @@
 
 </head>
 
-<body onload="CollectionNames(); ShowCollectionTable();">
+<body onload="CollectionNames(); ShowCollectionTable(); FieldNames();">
     <h1>Collections</h1>
 
     <div id="collectionNameBoxes"></div>
     <p id="selectedCollectionName"></p>
     <div style="width: 70%">
         <p id="collectionDataTable"></p>
+    </div>
+
+    <div style="width: 30%">
+        <h3>Fields</h3>
+        <p id="selectedFieldNames">Hello</p>
     </div>
 
     <script src="collections.js"></script>
