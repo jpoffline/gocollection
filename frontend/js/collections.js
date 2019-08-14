@@ -3,16 +3,21 @@
 
 function ShowCollectionNames(names){
     var divContainer = document.getElementById("collectionNameBoxes");
-
+    
     var divs = document.createElement("div");
     divs.setAttribute('class', 'container');
-
+    
     names.forEach(collectionname => {
         divs.appendChild(CollectionNameBox(collectionname))
     })
 
     divContainer.innerHTML = "";
     divContainer.appendChild(divs);
+}
+
+function ShowSelectedCollectionMeta(meta){
+    document.getElementById("selectedCollectionName").innerHTML = meta.label;
+    document.getElementById("selectedCollectionName").setAttribute("name", meta.name);
 }
 
 function submitNewRecord(id){
@@ -23,43 +28,27 @@ function submitNewRecord(id){
         var field = item.querySelectorAll('[type="text"]')[0];
         obj[field.id] = field.value;
     }
-    console.log(obj)
-    var collname = document.getElementById('selectedCollectionName').innerHTML;
-
-    var request = new XMLHttpRequest();
     
-    url = urlRoot() + '/collection/' + collname;
-    
-    console.log(url)
-    request.open('POST', url, true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    var collname = document.getElementById('selectedCollectionName').getAttribute("name");
 
-    request.onreadystatechange = function () {
-        if (this.readyState != 4) return;
-    
-        if (this.status == 200) {
-            //var data = JSON.parse(this.responseText);
-            ShowCollectionTable(collname)
-            // we get the returned data
-        }
-    
-        // end of state change: it can be after some time (async)
-    };
-
-    request.send(JSON.stringify({'data':obj, 'id' : 4}));
-    
-
-
+    RouteRespondPost(
+        '/collection/' + collname,
+        {'data':obj, 'id' : 4},
+        ShowCollectionTable,
+        collname
+    )
 }
 
-function RenderAddRowToCollection(names){
+function RenderAddRowToCollection(data){
     
-    var formid = 'thisform';
+    fields = data.fields
+    console.log(data)
+    var formid = 'newrecordform';
     var divContainer = document.getElementById("formAddRowToCollection");
     var form = document.createElement("form");
     form.setAttribute('id', formid);
     form.setAttribute('class', 'container');
-    names.forEach(field => {
+    fields.forEach(field => {
         form.appendChild(FieldNameArea(field));
     })
     form.appendChild(

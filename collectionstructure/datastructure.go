@@ -20,6 +20,11 @@ type Field struct {
 	Name string `json:"name"`
 }
 
+type FieldsReturn struct {
+	CollectionName string  `json:"collection"`
+	Fields         []Field `json:"fields"`
+}
+
 // Record contains the data for a particular record.
 type Record struct {
 	ID   int               `json:"id"`

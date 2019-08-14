@@ -9,7 +9,8 @@ function urlRoot(){
 
 function ShowCollectionTable(which='coffee'){
     RouteRespondGet('/collection/' + which, toTable)
-    document.getElementById("selectedCollectionName").innerHTML = which
+    RouteRespondGet('/meta/' + which, ShowSelectedCollectionMeta)
+    showAddRowToCollectionForm(which)
 }
 
 function CollectionNames(){

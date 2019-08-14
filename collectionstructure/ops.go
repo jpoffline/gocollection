@@ -39,15 +39,28 @@ func (c *Collection) pullFields() []Field {
 	return (c.Fields)
 }
 
-func GetFields(colname string) []Field {
+func GetFields(colname string) FieldsReturn {
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
-	return (coll.pullFields())
+	var ret FieldsReturn
+	ret.Fields = coll.pullFields()
+	ret.CollectionName = colname
+	return (ret)
 }
 
 func GetMeta() []CollectionMeta {
 	f := Read(DATAFILE)
 	return (f.Names())
+}
+
+func GetCollectionMeta(collname string) CollectionMeta {
+	all := GetMeta()
+	for _, v := range all {
+		if v.Name == collname {
+			return v
+		}
+	}
+	return CollectionMeta{}
 }
 
 func (c *Collection) addRecord(r Record) {

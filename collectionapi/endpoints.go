@@ -60,3 +60,12 @@ func UpdateFieldName(w http.ResponseWriter, r *http.Request) {
 	coll.UpdateFieldName(key, field)
 	//json.NewEncoder(w).Encode()
 }
+
+func ReturnCollectionMeta(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: ReturnCollectionMeta")
+	vars := mux.Vars(r)
+	key := vars["collectionname"]
+
+	json.NewEncoder(w).Encode(coll.GetCollectionMeta(key))
+
+}
