@@ -7,10 +7,11 @@
 
  <title>Collections App</title>
  <link href="style.css" rel="stylesheet">
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 </head>
 
-<body onload="CollectionNames(); ShowCollectionTable(); FieldNames();">
+<body onload="CollectionNames(); ShowCollectionTable(); showAddRowToCollectionForm();">
     <h1>Collections</h1>
 
     <div id="collectionNameBoxes"></div>
@@ -20,11 +21,17 @@
     </div>
 
     <div style="width: 30%">
-        <h3>Fields</h3>
-        <p id="selectedFieldNames">Hello</p>
+        <h3>Add row</h3>
+        <p id="formAddRowToCollection"></p>
     </div>
 
-    <script src="collections.js"></script>
+    <script src="js/collections.js"></script>
+    <script src="js/routes/main.js"></script>
+    <script src="js/components/button.js"></script>
+    <script src="js/routes/handle_get.js"></script>
+    <script src="js/views/totable.js"></script>
+    <script src="js/views/fieldnamearea.js"></script>
+    <script src="js/views/collectionnamebox.js"></script>
 </body>
 
 </html>

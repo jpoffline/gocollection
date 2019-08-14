@@ -35,6 +35,7 @@ func AddRecordToCollection(w http.ResponseWriter, r *http.Request) {
 
 	var record coll.RecordReceive
 	vars := mux.Vars(r)
+	w.WriteHeader(http.StatusOK)
 	key := vars["collectionname"]
 	_ = json.NewDecoder(r.Body).Decode(&record)
 	coll.AddRecord(key, record)

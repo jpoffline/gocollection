@@ -2,6 +2,7 @@ package collectionstructure
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -54,7 +55,7 @@ func (c *Collection) addRecord(r Record) {
 }
 
 func AddRecord(colname string, rec RecordReceive) {
-
+	fmt.Println(rec)
 	current := Read(DATAFILE)
 	tgtCollection := current.PullCollection(colname)
 	tgtFields := tgtCollection.pullFields()
