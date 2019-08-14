@@ -5,7 +5,7 @@
 # Endpoints
 
 ```
-/collections
+GET /collections
 ```
 
 ```json
@@ -16,6 +16,19 @@
 ]
 ```
 
+
 ```
-/collection/{collectionname}
+GET /fields/{collectionname}
+```
+
+```
+GET /meta/{collectionname}
+```
+
+```
+GET /collection/{collectionname}
+```
+
+```
+POST /collection/{collectionname}
 ```

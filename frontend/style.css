@@ -1,34 +1,28 @@
-body{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-}
 
 
 #root {
-    max-width: 1200px;
-    margin: 0 auto;
-   }
-   
-   .container {
-    display: flex;
-    flex-wrap: wrap;
-   }
-   
-   .card {
-    margin: 1rem;
-    border: 1px solid gray;
-   }
-   
-   @media screen and (min-width: 600px) {
-    .card {
-      flex: 1 1 calc(50% - 2rem);
-    }
-   }
-   
-   @media screen and (min-width: 900px) {
-    .card {
-      flex: 1 1 calc(33% - 2rem);
-    }
-   }
+max-width: 1200px;
+margin: 0 auto;
+}
+
+
+
+.card {
+  margin: 1rem;
+  border: 1px solid gray;
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    flex: 1 1 calc(50% - 2rem);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .card {
+    flex: 1 1 calc(33% - 2rem);
+  }
+}
 
 
 .collectionnamebox{
@@ -63,6 +57,6 @@ th {
   color: white;
 }
 
-.label{
-  padding-right: 20px;
+.row {
+  margin: 10px;
 }

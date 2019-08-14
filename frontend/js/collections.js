@@ -5,13 +5,17 @@ function ShowCollectionNames(names){
     var divContainer = document.getElementById("collectionNameBoxes");
     
     var divs = document.createElement("div");
+    var row = document.createElement("div");
+    row.setAttribute("class", "row")
     divs.setAttribute('class', 'container');
     
     names.forEach(collectionname => {
-        divs.appendChild(CollectionNameBox(collectionname))
+        row.appendChild(element("2", CollectionNameBox(collectionname)));
     })
 
-    divContainer.innerHTML = "";
+    divs.appendChild(row)
+
+    
     divContainer.appendChild(divs);
 }
 
@@ -44,21 +48,26 @@ function RenderAddRowToCollection(data){
     fields = data.fields
     console.log(data)
     var formid = 'newrecordform';
+    
     var divContainer = document.getElementById("formAddRowToCollection");
     var form = document.createElement("form");
+    
+    var title = document.createElement("h2");
+    title.innerHTML = "Add row"
+    
     form.setAttribute('id', formid);
-    form.setAttribute('class', 'container');
     fields.forEach(field => {
         form.appendChild(FieldNameArea(field));
     })
     form.appendChild(
         button(
-            label='submit', 
+            label='Add', 
             id='submitform',
             onclick='submitNewRecord("' + formid +'")'
         )
     );
-    divContainer.innerHTML = "";
+    divContainer.innerHTML = ""
+    divContainer.appendChild(title);
     divContainer.appendChild(form);
     
 }

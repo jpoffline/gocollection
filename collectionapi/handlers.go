@@ -17,10 +17,10 @@ func HandleRequests() {
 
 	myRouter := mux.NewRouter().StrictSlash(true)
 	myRouter.HandleFunc("/collections", CollectionNames).Methods("GET")
+	myRouter.HandleFunc("/collection/{collectionname}", ReturnCollectionAsTable).Methods("GET")
+	myRouter.HandleFunc("/collection/{collectionname}", AddRecordToCollection).Methods("POST")
 	myRouter.HandleFunc("/fields/{collectionname}", ReturnFieldNames).Methods("GET")
 	myRouter.HandleFunc("/field/{collectionname}", UpdateFieldName).Methods("PATCH")
 	myRouter.HandleFunc("/meta/{collectionname}", ReturnCollectionMeta).Methods("GET")
-	myRouter.HandleFunc("/collection/{collectionname}", ReturnCollectionAsTable).Methods("GET")
-	myRouter.HandleFunc("/collection/{collectionname}", AddRecordToCollection).Methods("POST")
 	log.Fatal(http.ListenAndServe(":10000", handlers.CORS(originsOk, headersOk, methodsOk)(myRouter)))
 }
