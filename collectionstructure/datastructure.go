@@ -32,7 +32,7 @@ type Record struct {
 }
 
 type RecordReceive struct {
-	ID   int               `json:"id"`
+	//ID   int               `json:"id"`
 	Data map[string]string `json:"data"`
 }
 

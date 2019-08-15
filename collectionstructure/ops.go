@@ -63,6 +63,7 @@ func GetCollectionMeta(collname string) CollectionMeta {
 }
 
 func (c *Collection) addRecord(r Record) {
+	r.ID = len(c.Records) + 1
 	c.Records = append(c.Records, r)
 }
 
@@ -73,7 +74,7 @@ func AddRecord(colname string, rec RecordReceive) {
 	tgtFields := tgtCollection.pullFields()
 
 	var newRecord Record
-	newRecord.ID = rec.ID
+	//newRecord.ID = rec.ID
 
 	recData := make(map[string]string)
 	for _, v := range tgtFields {

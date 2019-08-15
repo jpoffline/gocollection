@@ -75,7 +75,7 @@ function submitNewRecord(id){
 
     RouteRespondPost(
         '/collection/' + collname,
-        {'data':obj, 'id' : 4},
+        {'data':obj},
         ShowCollectionTable,
         collname
     )
@@ -100,7 +100,7 @@ function CreateFieldsInputForm(id, fields, deft=""){
 function RenderAddRowToCollection(data){
     
     fields = data.fields
-    console.log(data)
+    
     var formid = 'newrecordform';
     
     var frm = CreateFieldsInputForm(formid, fields);
@@ -135,12 +135,12 @@ function RenderFieldsEditArea(fields){
         )
     );
     area.innerHTML = ""
-    area.appendChild(frm)
+
+    
+
+    area.appendChild(frm);
 }
 
-function empty(args){
-
-}
 
 function submitFieldNameUpdates(formid){
     var collname = selectedCollectionName();
