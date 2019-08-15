@@ -1,5 +1,6 @@
 
-function FieldNameArea(name){
+function FieldNameArea(name, defaultValue=""){
+    
     var divs = document.createElement("div");
     divs.setAttribute('class', 'input-group');
 
@@ -14,8 +15,10 @@ function FieldNameArea(name){
     divlbl.appendChild(label)
     var input = document.createElement("input");
     input.setAttribute('type', 'text');
-    input.setAttribute('id',  name.name);
+    input.setAttribute('id',  name.id);
+    input.setAttribute('name',  name.name);
     input.setAttribute('class', 'form-control')
+    input.setAttribute("value", defaultValue)
     
     divs.appendChild(label);
     divs.appendChild(input);

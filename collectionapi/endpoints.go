@@ -56,9 +56,19 @@ func UpdateFieldName(w http.ResponseWriter, r *http.Request) {
 	key := vars["collectionname"]
 	var field coll.Field
 	_ = json.NewDecoder(r.Body).Decode(&field)
-
 	coll.UpdateFieldName(key, field)
-	//json.NewEncoder(w).Encode()
+}
+
+func UpdateFieldNames(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: UpdateFieldNames")
+	vars := mux.Vars(r)
+	key := vars["collectionname"]
+	var fields []coll.Field
+
+	_ = json.NewDecoder(r.Body).Decode(&fields)
+	for _, field := range fields {
+		coll.UpdateFieldName(key, field)
+	}
 }
 
 func ReturnCollectionMeta(w http.ResponseWriter, r *http.Request) {

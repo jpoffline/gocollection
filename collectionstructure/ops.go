@@ -2,7 +2,6 @@ package collectionstructure
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -68,7 +67,7 @@ func (c *Collection) addRecord(r Record) {
 }
 
 func AddRecord(colname string, rec RecordReceive) {
-	fmt.Println(rec)
+
 	current := Read(DATAFILE)
 	tgtCollection := current.PullCollection(colname)
 	tgtFields := tgtCollection.pullFields()
@@ -95,11 +94,13 @@ func UpdateFieldName(colname string, field Field) {
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
 	fields := coll.pullFields()
+
 	for i, f := range fields {
 		if f.ID == field.ID {
 			fields[i].Name = field.Name
 		}
 	}
 	coll.Fields = fields
+
 	saveCollection(colname, coll)
 }
