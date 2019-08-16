@@ -19,6 +19,12 @@ func Read(filename string) Collections {
 	return (f)
 }
 
+// NumRecords returns the number of records in a given
+// collection.
+func (col *Collection) NumRecords() int {
+	return len(col.Records)
+}
+
 func (col *Collections) Write(filename string) {
 	file, _ := json.MarshalIndent(col, "", " ")
 	_ = ioutil.WriteFile(filename, file, 0644)
@@ -62,9 +68,9 @@ func GetCollectionMeta(collname string) CollectionMeta {
 	return CollectionMeta{}
 }
 
-func (c *Collection) addRecord(r Record) {
-	r.ID = len(c.Records) + 1
-	c.Records = append(c.Records, r)
+func (col *Collection) addRecord(r Record) {
+	r.ID = len(col.Records) + 1
+	col.Records = append(col.Records, r)
 }
 
 func AddRecord(colname string, rec RecordReceive) {
@@ -92,6 +98,7 @@ func AddRecord(colname string, rec RecordReceive) {
 }
 
 func UpdateFieldName(colname string, field Field) {
+	//
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
 	fields := coll.pullFields()
