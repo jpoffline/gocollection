@@ -134,6 +134,19 @@ function RenderFieldsEditArea(fields){
             onclick='submitFieldNameUpdates("' + formid +'")'
         )
     );
+
+    frm.appendChild(
+        button(
+            label='Add field', 
+            id='submitaddfield',
+            onclick='renderAddFieldToCollectionArea("' + formid +'")'
+        )
+    );
+
+    var divNewFieldName = div();
+    divNewFieldName.setAttribute('id', 'newFieldNameArea');
+    frm.appendChild(divNewFieldName);
+
     area.innerHTML = ""
 
     
@@ -141,6 +154,14 @@ function RenderFieldsEditArea(fields){
     area.appendChild(frm);
 }
 
+function renderAddFieldToCollectionArea(id){
+    console.log(id)
+    
+    var frm = CreateFieldsInputForm('newfieldname', [{
+        'id':'newfieldnamevalue', 'name':'Field'}]);
+    document.getElementById('newFieldNameArea').appendChild(frm);
+
+}
 
 function submitFieldNameUpdates(formid){
     var collname = selectedCollectionName();

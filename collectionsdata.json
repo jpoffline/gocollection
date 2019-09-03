@@ -13,10 +13,11 @@
  ],
  "collections": {
   "coffee": {
+   "maxfieldidx": 3,
    "fields": [
     {
      "id": "1",
-     "name": "smell"
+     "name": "Smell"
     },
     {
      "id": "2",
@@ -24,7 +25,7 @@
     },
     {
      "id": "3",
-     "name": "music"
+     "name": "Music"
     }
    ],
    "records": [
@@ -131,10 +132,27 @@
       "2": "",
       "3": ""
      }
+    },
+    {
+     "id": 14,
+     "data": {
+      "1": "",
+      "2": "",
+      "3": ""
+     }
+    },
+    {
+     "id": 15,
+     "data": {
+      "1": "grim",
+      "2": "12.32",
+      "3": "loud"
+     }
     }
    ]
   },
   "wineshops": {
+   "maxfieldidx": 8,
    "fields": [
     {
      "id": "1",
@@ -147,6 +165,18 @@
     {
      "id": "3",
      "name": "music"
+    },
+    {
+     "id": "5",
+     "name": "doojimmy"
+    },
+    {
+     "id": "6",
+     "name": "doojimmy2"
+    },
+    {
+     "id": "8",
+     "name": "doojimmy4"
     }
    ],
    "records": [

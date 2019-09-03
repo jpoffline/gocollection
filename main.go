@@ -1,7 +1,7 @@
 package main
 
 import (
-	handlers "gencollection/collectionapi"
+	handlers "github.com/jpoffline/gocollection/collectionapi"
 )
 
 func main() {

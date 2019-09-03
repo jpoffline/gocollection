@@ -3,8 +3,9 @@ package collectionapi
 import (
 	"encoding/json"
 	"fmt"
-	coll "gencollection/collectionstructure"
 	"net/http"
+
+	coll "github.com/jpoffline/gocollection/collectionstructure"
 
 	"github.com/gorilla/mux"
 )
@@ -28,6 +29,9 @@ func CollectionNames(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: CollectionNames")
 	json.NewEncoder(w).Encode(coll.GetMeta())
 }
+
+// AddRecordToCollection is an endpoint which adds
+// a given record to a collection.
 
 func AddRecordToCollection(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: AddRecordToCollection")
@@ -78,4 +82,21 @@ func ReturnCollectionMeta(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(coll.GetCollectionMeta(key))
 
+}
+
+func AddField(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: AddField")
+	vars := mux.Vars(r)
+	key := vars["collectionname"]
+
+	w.Header().Set("Content-Type", "application/json")
+
+	var fn map[string]string
+
+	w.WriteHeader(http.StatusOK)
+
+	_ = json.NewDecoder(r.Body).Decode(&fn)
+	coll.AddField(key, fn["newfield"])
+
+	json.NewEncoder(w).Encode(&fn)
 }

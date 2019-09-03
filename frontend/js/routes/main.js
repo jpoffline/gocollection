@@ -20,3 +20,4 @@ function CollectionNames(){
 function showAddRowToCollectionForm(which = 'coffee'){
     RouteRespondGet('/fields/' + which, RenderAddRowToCollection)
 }
+
