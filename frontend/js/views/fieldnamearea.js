@@ -1,6 +1,6 @@
 
 function FieldNameArea(name, defaultValue=""){
-    
+    console.log(name)
     var divs = document.createElement("div");
     divs.setAttribute('class', 'input-group');
 

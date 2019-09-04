@@ -46,18 +46,27 @@ function readFormValues(formid){
     return(obj)
 }
 
+function isUndefined(value){
+    // Obtain `undefined` value that's
+    // guaranteed to not have been re-assigned
+    var undefined = void(0);
+    return value === undefined;
+}
+
 function readFormComplete(formid){
     var elements = document.getElementById(formid).childNodes;
+    
     var obj =[];
-    for(var i = 0 ; i < elements.length-1 ; i++){
+    for(var i = 0 ; i < elements.length ; i++){
         var item = elements.item(i);
         var field = item.querySelectorAll('[type="text"]')[0];
-        //obj[field.name] = field.value;
-        var newrec = {};
-        newrec['name'] = field.name;
-        newrec['id'] = field.id;
-        newrec['value'] = field.value
-        obj.push(newrec);
+        if(!isUndefined(field)){
+            var newrec = {};
+            newrec['name'] = field.name;
+            newrec['id'] = field.id;
+            newrec['value'] = field.value
+            obj.push(newrec);
+        }
     }
     return(obj)
 }
@@ -134,6 +143,19 @@ function RenderFieldsEditArea(fields){
             onclick='submitFieldNameUpdates("' + formid +'")'
         )
     );
+
+    frm.appendChild(
+        button(
+            label='Add field', 
+            id='submitaddfield',
+            onclick='renderAddFieldToCollectionArea("' + formid +'")'
+        )
+    );
+
+    var divNewFieldName = div();
+    divNewFieldName.setAttribute('id', 'newFieldNameArea');
+    frm.appendChild(divNewFieldName);
+
     area.innerHTML = ""
 
     
@@ -141,6 +163,14 @@ function RenderFieldsEditArea(fields){
     area.appendChild(frm);
 }
 
+function renderAddFieldToCollectionArea(id){
+    console.log(id)
+    
+    var frm = CreateFieldsInputForm('newfieldname', [{
+        'id':'newfieldnamevalue', 'name':'Field'}]);
+    document.getElementById('newFieldNameArea').appendChild(frm);
+
+}
 
 function submitFieldNameUpdates(formid){
     var collname = selectedCollectionName();

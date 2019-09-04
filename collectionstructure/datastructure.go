@@ -10,8 +10,9 @@ type Collections struct {
 
 // Collection contains the fields and records.
 type Collection struct {
-	Fields  []Field  `json:"fields"`
-	Records []Record `json:"records"`
+	MaxFieldIdx int      `json:"maxfieldidx"`
+	Fields      []Field  `json:"fields"`
+	Records     []Record `json:"records"`
 }
 
 // Field contains the meta data for a given field.

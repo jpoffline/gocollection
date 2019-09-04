@@ -13,10 +13,11 @@
  ],
  "collections": {
   "coffee": {
+   "maxfieldidx": 0,
    "fields": [
     {
      "id": "1",
-     "name": "smell"
+     "name": "smelldd"
     },
     {
      "id": "2",
@@ -24,7 +25,7 @@
     },
     {
      "id": "3",
-     "name": "music"
+     "name": "music2332"
     }
    ],
    "records": [
@@ -135,6 +136,7 @@
    ]
   },
   "wineshops": {
+   "maxfieldidx": 0,
    "fields": [
     {
      "id": "1",

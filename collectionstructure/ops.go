@@ -2,8 +2,10 @@ package collectionstructure
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 )
 
 // Names returns the list of collection meta data.
@@ -12,8 +14,15 @@ func (col *Collections) Names() []CollectionMeta {
 }
 
 func Read(filename string) Collections {
-	jsonFile, _ := os.Open(filename)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
+	fmt.Println(filename)
+	jsonFile, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("error opening file%q", err)
+	}
+	byteValue, err := ioutil.ReadAll(jsonFile)
+	if err != nil {
+		fmt.Println("error reading file%q", err)
+	}
 	var f Collections
 	json.Unmarshal(byteValue, &f)
 	return (f)
@@ -109,6 +118,22 @@ func UpdateFieldName(colname string, field Field) {
 		}
 	}
 	coll.Fields = fields
+
+	saveCollection(colname, coll)
+}
+
+func AddField(colname, fieldname string) {
+	current := Read(DATAFILE)
+	coll := current.PullCollection(colname)
+	fields := coll.pullFields()
+
+	newMax := coll.MaxFieldIdx + 1
+	var newfield Field
+	newfield.ID = strconv.Itoa(newMax)
+	newfield.Name = fieldname
+	fields = append(fields, newfield)
+	coll.Fields = fields
+	coll.MaxFieldIdx = newMax
 
 	saveCollection(colname, coll)
 }

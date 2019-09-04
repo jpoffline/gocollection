@@ -3,7 +3,6 @@ package collectionapi
 import (
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -11,8 +10,10 @@ import (
 
 func HandleRequests() {
 
-	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
-	originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "X-Custom-Header"})
+	//originsOk := handlers.AllowedOrigins([]string{os.Getenv("ORIGIN_ALLOWED")})
+	corsObj := handlers.AllowedOrigins([]string{"*"})
+
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "UPDATE"})
 
 	myRouter := mux.NewRouter().StrictSlash(true)
@@ -21,7 +22,8 @@ func HandleRequests() {
 	myRouter.HandleFunc("/collection/{collectionname}", AddRecordToCollection).Methods("POST")
 	myRouter.HandleFunc("/fields/{collectionname}", ReturnFieldNames).Methods("GET")
 	myRouter.HandleFunc("/field/{collectionname}", UpdateFieldName).Methods("POST")
+	myRouter.HandleFunc("/addfield/{collectionname}", AddField).Methods("POST")
 	myRouter.HandleFunc("/fields/{collectionname}", UpdateFieldNames).Methods("POST")
 	myRouter.HandleFunc("/meta/{collectionname}", ReturnCollectionMeta).Methods("GET")
-	log.Fatal(http.ListenAndServe(":10000", handlers.CORS(originsOk, headersOk, methodsOk)(myRouter)))
+	log.Fatal(http.ListenAndServe(":10000", handlers.CORS(corsObj, headersOk, methodsOk)(myRouter)))
 }
