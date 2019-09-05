@@ -9,8 +9,8 @@ import (
 )
 
 // Names returns the list of collection meta data.
-func (col *Collections) Names() []CollectionMeta {
-	return (col.CollectionNames)
+func (cols *Collections) Names() []CollectionMeta {
+	return (cols.CollectionNames)
 }
 
 func Read(filename string) Collections {
@@ -30,12 +30,12 @@ func Read(filename string) Collections {
 
 // NumRecords returns the number of records in a given
 // collection.
-func (col *Collection) NumRecords() int {
-	return len(col.Records)
+func (coll *Collection) NumRecords() int {
+	return len(coll.Records)
 }
 
-func (col *Collections) Write(filename string) {
-	file, _ := json.MarshalIndent(col, "", " ")
+func (coll *Collections) Write(filename string) {
+	file, _ := json.MarshalIndent(coll, "", " ")
 	_ = ioutil.WriteFile(filename, file, 0644)
 }
 
@@ -45,12 +45,12 @@ func saveCollection(colname string, col Collection) {
 	current.Write(DATAFILE)
 }
 
-func (col *Collections) PullCollection(colname string) Collection {
-	return (col.Data[colname])
+func (coll *Collections) PullCollection(colname string) Collection {
+	return (coll.Data[colname])
 }
 
-func (c *Collection) pullFields() []Field {
-	return (c.Fields)
+func (coll *Collection) pullFields() []Field {
+	return (coll.Fields)
 }
 
 func GetFields(colname string) FieldsReturn {
@@ -77,9 +77,9 @@ func GetCollectionMeta(collname string) CollectionMeta {
 	return CollectionMeta{}
 }
 
-func (col *Collection) addRecord(r Record) {
-	r.ID = len(col.Records) + 1
-	col.Records = append(col.Records, r)
+func (coll *Collection) addRecord(r Record) {
+	r.ID = len(coll.Records) + 1
+	coll.Records = append(coll.Records, r)
 }
 
 func AddRecord(colname string, rec RecordReceive) {
@@ -87,9 +87,6 @@ func AddRecord(colname string, rec RecordReceive) {
 	current := Read(DATAFILE)
 	tgtCollection := current.PullCollection(colname)
 	tgtFields := tgtCollection.pullFields()
-
-	var newRecord Record
-	//newRecord.ID = rec.ID
 
 	recData := make(map[string]string)
 	for _, v := range tgtFields {
@@ -101,15 +98,20 @@ func AddRecord(colname string, rec RecordReceive) {
 
 	}
 
+	var newRecord Record
 	newRecord.Data = recData
 	tgtCollection.addRecord(newRecord)
 	saveCollection(colname, tgtCollection)
 }
 
 func UpdateFieldName(colname string, field Field) {
-	//
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
+	coll.modifyFieldName(field)
+	saveCollection(colname, coll)
+}
+
+func (coll *Collection) modifyFieldName(field Field) {
 	fields := coll.pullFields()
 
 	for i, f := range fields {
@@ -118,13 +120,9 @@ func UpdateFieldName(colname string, field Field) {
 		}
 	}
 	coll.Fields = fields
-
-	saveCollection(colname, coll)
 }
 
-func AddField(colname, fieldname string) {
-	current := Read(DATAFILE)
-	coll := current.PullCollection(colname)
+func (coll *Collection) addField(fieldname string) {
 	fields := coll.pullFields()
 
 	newMax := coll.MaxFieldIdx + 1
@@ -134,7 +132,12 @@ func AddField(colname, fieldname string) {
 	fields = append(fields, newfield)
 	coll.Fields = fields
 	coll.MaxFieldIdx = newMax
+}
 
+func AddField(colname, fieldname string) {
+	current := Read(DATAFILE)
+	coll := current.PullCollection(colname)
+	coll.addField(fieldname)
 	saveCollection(colname, coll)
 }
 
@@ -155,14 +158,18 @@ func newCollectionStructure() Collection {
 	return newColl
 }
 
-func AddCollection(meta CollectionMeta) {
-	current := Read(DATAFILE)
-	currCollMeta := current.CollectionNames
+func (col *Collections) addNewCollection(meta CollectionMeta) {
+	currCollMeta := col.CollectionNames
 	currMaxID, _ := strconv.Atoi(currCollMeta[len(currCollMeta)-1].ID)
 	meta.ID = strconv.Itoa(currMaxID + 1)
-	current.CollectionNames = append(currCollMeta, meta)
+	col.CollectionNames = append(currCollMeta, meta)
+	col.Data[meta.Name] = newCollectionStructure()
+}
 
-	current.Data[meta.Name] = newCollectionStructure()
+func AddCollection(meta CollectionMeta) {
+	current := Read(DATAFILE)
+
+	current.addNewCollection(meta)
 
 	current.Write(DATAFILE)
 }

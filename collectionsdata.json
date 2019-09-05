@@ -18,7 +18,7 @@
  ],
  "collections": {
   "coffee": {
-   "maxfieldidx": 7,
+   "maxfieldidx": 8,
    "fields": [
     {
      "id": "1",
@@ -35,6 +35,10 @@
     {
      "id": "7",
      "name": "Hipster?"
+    },
+    {
+     "id": "8",
+     "name": "jhg"
     }
    ],
    "records": [
