@@ -22,7 +22,10 @@ func HandleRequests() {
 	myRouter.HandleFunc("/collection/{collectionname}", AddRecordToCollection).Methods("POST")
 	myRouter.HandleFunc("/fields/{collectionname}", ReturnFieldNames).Methods("GET")
 	myRouter.HandleFunc("/field/{collectionname}", UpdateFieldName).Methods("POST")
+
 	myRouter.HandleFunc("/addfield/{collectionname}", AddField).Methods("POST")
+	myRouter.HandleFunc("/addcollection", AddNewCollection).Methods("POST")
+
 	myRouter.HandleFunc("/fields/{collectionname}", UpdateFieldNames).Methods("POST")
 	myRouter.HandleFunc("/meta/{collectionname}", ReturnCollectionMeta).Methods("GET")
 	log.Fatal(http.ListenAndServe(":10000", handlers.CORS(corsObj, headersOk, methodsOk)(myRouter)))

@@ -100,3 +100,11 @@ func AddField(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(&fn)
 }
+
+func AddNewCollection(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Endpoint Hit: AddNewCollection")
+	var collectionmeta coll.CollectionMeta
+	_ = json.NewDecoder(r.Body).Decode(&collectionmeta)
+	coll.AddCollection(collectionmeta)
+
+}

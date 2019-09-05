@@ -9,6 +9,11 @@
    "id": "2",
    "name": "wineshops",
    "label": "Wine Shops"
+  },
+  {
+   "id": "3",
+   "name": "hipstershops2",
+   "label": "Hipster"
   }
  ],
  "collections": {
@@ -143,6 +148,34 @@
       "1": "",
       "2": "",
       "3": ""
+     }
+    }
+   ]
+  },
+  "hipstershops2": {
+   "maxfieldidx": 2,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Person"
+    },
+    {
+     "id": "2",
+     "name": "Pillock"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
+    },
+    {
+     "id": 2,
+     "data": {
+      "1": "moi",
+      "2": "yes"
      }
     }
    ]

@@ -137,3 +137,32 @@ func AddField(colname, fieldname string) {
 
 	saveCollection(colname, coll)
 }
+
+func newCollectionStructure() Collection {
+	newColl := Collection{}
+	newColl.MaxFieldIdx = 1
+	var nf Field
+
+	nf.ID = "1"
+	nf.Name = "Field"
+	newColl.Fields = append(newColl.Fields, nf)
+	var dd = make(map[string]string)
+	dd[nf.ID] = "Record"
+	var nr Record
+	nr.ID = 1
+	nr.Data = dd
+	newColl.Records = append(newColl.Records, nr)
+	return newColl
+}
+
+func AddCollection(meta CollectionMeta) {
+	current := Read(DATAFILE)
+	currCollMeta := current.CollectionNames
+	currMaxID, _ := strconv.Atoi(currCollMeta[len(currCollMeta)-1].ID)
+	meta.ID = strconv.Itoa(currMaxID + 1)
+	current.CollectionNames = append(currCollMeta, meta)
+
+	current.Data[meta.Name] = newCollectionStructure()
+
+	current.Write(DATAFILE)
+}
