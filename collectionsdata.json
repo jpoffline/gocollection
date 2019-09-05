@@ -13,11 +13,11 @@
  ],
  "collections": {
   "coffee": {
-   "maxfieldidx": 0,
+   "maxfieldidx": 7,
    "fields": [
     {
      "id": "1",
-     "name": "smelldd"
+     "name": "Smell"
     },
     {
      "id": "2",
@@ -25,7 +25,11 @@
     },
     {
      "id": "3",
-     "name": "music2332"
+     "name": "Ambience"
+    },
+    {
+     "id": "7",
+     "name": "Hipster?"
     }
    ],
    "records": [
@@ -132,15 +136,23 @@
       "2": "",
       "3": ""
      }
+    },
+    {
+     "id": 14,
+     "data": {
+      "1": "",
+      "2": "",
+      "3": ""
+     }
     }
    ]
   },
   "wineshops": {
-   "maxfieldidx": 0,
+   "maxfieldidx": 3,
    "fields": [
     {
      "id": "1",
-     "name": "smell"
+     "name": "Smell"
     },
     {
      "id": "2",
@@ -148,7 +160,7 @@
     },
     {
      "id": "3",
-     "name": "music"
+     "name": "Music"
     }
    ],
    "records": [
@@ -201,6 +213,30 @@
     },
     {
      "id": 7,
+     "data": {
+      "1": "",
+      "2": "",
+      "3": ""
+     }
+    },
+    {
+     "id": 8,
+     "data": {
+      "1": "plump",
+      "2": "£19.99",
+      "3": "banging."
+     }
+    },
+    {
+     "id": 9,
+     "data": {
+      "1": "",
+      "2": "",
+      "3": ""
+     }
+    },
+    {
+     "id": 10,
      "data": {
       "1": "",
       "2": "",

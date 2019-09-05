@@ -1,27 +1,37 @@
 
 
 
-function ShowCollectionNames(names){
-    var divContainer = document.getElementById("collectionNameBoxes");
-    
-    var divs = div();
-    var row = div();
-    row.setAttribute("class", "row")
-    divs.setAttribute('class', 'container');
-    
+function ShowCollectionNames(names) {
+    var divContainer = document.getElementById("collectionsNav");
+
+    var hldr = div();
+    hldr.setAttribute("class", "navbar-nav")
+    hldr.setAttribute("id", "navbaritems");
     names.forEach(collectionname => {
-        row.appendChild(tableElement("2", CollectionNameBox(collectionname)));
+        hldr.appendChild(CollectionNameBox(collectionname));
     })
+    var nv = div();
+    nv.setAttribute("class", "collapse navbar-collapse");
+    nv.setAttribute("id", "navbarNavAltMarkup");
+    nv.appendChild(hldr);
 
-    divs.appendChild(row)
 
+    var divs = div();
+    divs.setAttribute("class", "navbar navbar-expand-lg navbar-light bg-light");
     
+
+    nm = link("Collections", "#",  "navbar-brand");
+    
+
+    divs.appendChild(nm)
+    divs.appendChild(nv)
+
     divContainer.appendChild(divs);
 }
 
-function ShowSelectedCollectionMeta(meta){
+function ShowSelectedCollectionMeta(meta) {
     var area = document.getElementById("selectedCollectionName");
-    
+
     area.innerHTML = ""
     area.appendChild(h4(meta.label))
     area.setAttribute("name", meta.name);
@@ -29,38 +39,38 @@ function ShowSelectedCollectionMeta(meta){
     var colloptsdiv = document.createElement("div");
     colloptsdiv.innerHTML = "Edit collection properties";
     console.log(meta)
-    
-    
+
+
 
 
 }
 
-function readFormValues(formid){
+function readFormValues(formid) {
     var elements = document.getElementById(formid).childNodes;
-    var obj ={};
-    for(var i = 0 ; i < elements.length-1 ; i++){
+    var obj = {};
+    for (var i = 0; i < elements.length - 1; i++) {
         var item = elements.item(i);
         var field = item.querySelectorAll('[type="text"]')[0];
         obj[field.name] = field.value;
     }
-    return(obj)
+    return (obj)
 }
 
-function isUndefined(value){
+function isUndefined(value) {
     // Obtain `undefined` value that's
     // guaranteed to not have been re-assigned
-    var undefined = void(0);
+    var undefined = void (0);
     return value === undefined;
 }
 
-function readFormComplete(formid){
+function readFormComplete(formid) {
     var elements = document.getElementById(formid).childNodes;
-    
-    var obj =[];
-    for(var i = 0 ; i < elements.length ; i++){
+
+    var obj = [];
+    for (var i = 0; i < elements.length; i++) {
         var item = elements.item(i);
         var field = item.querySelectorAll('[type="text"]')[0];
-        if(!isUndefined(field)){
+        if (!isUndefined(field)) {
             var newrec = {};
             newrec['name'] = field.name;
             newrec['id'] = field.id;
@@ -68,34 +78,34 @@ function readFormComplete(formid){
             obj.push(newrec);
         }
     }
-    return(obj)
+    return (obj)
 }
 
-function selectedCollectionName(){
-    return(
+function selectedCollectionName() {
+    return (
         document.getElementById('selectedCollectionName').getAttribute("name")
     )
 }
 
-function submitNewRecord(id){
+function submitNewRecord(id) {
     var obj = readFormValues(id)
-    
+
     var collname = selectedCollectionName();
 
     RouteRespondPost(
         '/collection/' + collname,
-        {'data':obj},
+        { 'data': obj },
         ShowCollectionTable,
         collname
     )
 }
 
-function CreateFieldsInputForm(id, fields, deft=""){
+function CreateFieldsInputForm(id, fields, deft = "") {
     var frm = form(id);
 
     fields.forEach(
         field => {
-            if(deft != "") {
+            if (deft != "") {
                 frm.appendChild(FieldNameArea(field, defaultValue = field.name));
             } else {
                 frm.appendChild(FieldNameArea(field));
@@ -103,88 +113,11 @@ function CreateFieldsInputForm(id, fields, deft=""){
         }
     )
 
-    return(frm)
+    return (frm)
 }
 
-function RenderAddRowToCollection(data){
-    
-    fields = data.fields
-    
-    var formid = 'newrecordform';
-    
-    var frm = CreateFieldsInputForm(formid, fields);
 
-    frm.appendChild(
-        button(
-            label='Add', 
-            id='submitform',
-            onclick='submitNewRecord("' + formid +'")'
-        )
-    );
 
-    var divContainer = document.getElementById("formAddRowToCollection");
-    divContainer.innerHTML = ""
-    divContainer.appendChild(h4("Add row"));
-    divContainer.appendChild(frm);
-    
-    RenderFieldsEditArea(fields)
-    
 
-}
 
-function RenderFieldsEditArea(fields){
-    var area = document.getElementById("selectedCollectionOptions")
-    var formid = "titleedit";
-    var frm  = CreateFieldsInputForm(formid, fields, "names");
-    frm.appendChild(
-        button(
-            label='Update names', 
-            id='submittitleedit',
-            onclick='submitFieldNameUpdates("' + formid +'")'
-        )
-    );
 
-    frm.appendChild(
-        button(
-            label='Add field', 
-            id='submitaddfield',
-            onclick='renderAddFieldToCollectionArea("' + formid +'")'
-        )
-    );
-
-    var divNewFieldName = div();
-    divNewFieldName.setAttribute('id', 'newFieldNameArea');
-    frm.appendChild(divNewFieldName);
-
-    area.innerHTML = ""
-
-    
-
-    area.appendChild(frm);
-}
-
-function renderAddFieldToCollectionArea(id){
-    console.log(id)
-    
-    var frm = CreateFieldsInputForm('newfieldname', [{
-        'id':'newfieldnamevalue', 'name':'Field'}]);
-    document.getElementById('newFieldNameArea').appendChild(frm);
-
-}
-
-function submitFieldNameUpdates(formid){
-    var collname = selectedCollectionName();
-    var fieldNames = readFormComplete(formid);
-    var data = []
-    fieldNames.forEach(field=>{
-        data.push({
-            'id': field.id,
-            'name':field.value
-        });
-    })
-
-    RouteRespondPost('/fields/' + collname, data, ShowCollectionTable, collname)
-    
-    console.log(collname);
-    
-}

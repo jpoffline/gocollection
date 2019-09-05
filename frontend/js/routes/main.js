@@ -11,6 +11,7 @@ function ShowCollectionTable(which='coffee'){
     RouteRespondGet('/collection/' + which, toTable)
     RouteRespondGet('/meta/' + which, ShowSelectedCollectionMeta)
     showAddRowToCollectionForm(which)
+    MakeMenuItemActive(which)
 }
 
 function CollectionNames(){

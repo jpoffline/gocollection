@@ -1,18 +1,12 @@
 
 function FieldNameArea(name, defaultValue=""){
-    console.log(name)
-    var divs = document.createElement("div");
-    divs.setAttribute('class', 'input-group');
 
-    var divlbl = document.createElement("div");
-    divlbl.setAttribute("class", "input-group-prepend")
+    var divs = divClass('form-group row');
 
-    var label = document.createElement("span")
-    label.setAttribute("class", "input-group-text")
-    //label.setAttribute('for', name.name);
-    
-    label.innerHTML = name.name;
-    divlbl.appendChild(label)
+    var divlbl = labelClass(name.name, "col-sm-3 col-form-label");
+    divlbl.setAttribute("for", name.id);
+
+
     var input = document.createElement("input");
     input.setAttribute('type', 'text');
     input.setAttribute('id',  name.id);
@@ -20,8 +14,12 @@ function FieldNameArea(name, defaultValue=""){
     input.setAttribute('class', 'form-control')
     input.setAttribute("value", defaultValue)
     
-    divs.appendChild(label);
-    divs.appendChild(input);
+    var idiv = divClass("col-sm-9");
+
+    idiv.appendChild(input);
+
+    divs.appendChild(divlbl);
+    divs.appendChild(idiv);
 
     return(divs)
 }
