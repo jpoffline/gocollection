@@ -47,3 +47,9 @@ function link(lbl, href, cls) {
     a.innerHTML = lbl;
     return (a)
 }
+
+function genSpan(lbl){
+    var spn = document.createElement("span");
+    spn.innerHTML = spn;
+    return(spn);
+}
