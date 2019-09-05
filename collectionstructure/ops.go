@@ -62,11 +62,13 @@ func GetFields(colname string) FieldsReturn {
 	return (ret)
 }
 
+// GetMeta will return the names of all collections.
 func GetMeta() []CollectionMeta {
 	f := Read(DATAFILE)
 	return (f.Names())
 }
 
+// GetCollectionMeta will return the meta data for the provided collection name.
 func GetCollectionMeta(collname string) CollectionMeta {
 	all := GetMeta()
 	for _, v := range all {
@@ -82,13 +84,14 @@ func (coll *Collection) addRecord(r Record) {
 	coll.Records = append(coll.Records, r)
 }
 
+// AddRecord will add a record to the provided collection name.
 func AddRecord(colname string, rec RecordReceive) {
 
 	current := Read(DATAFILE)
 	tgtCollection := current.PullCollection(colname)
 	tgtFields := tgtCollection.pullFields()
 
-	recData := make(map[string]string)
+	recData := newRecordItem()
 	for _, v := range tgtFields {
 		ii, ok := rec.Data[v.Name]
 
@@ -134,6 +137,7 @@ func (coll *Collection) addField(fieldname string) {
 	coll.MaxFieldIdx = newMax
 }
 
+// AddField will add a fieldname to the provided collection name.
 func AddField(colname, fieldname string) {
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
@@ -141,31 +145,15 @@ func AddField(colname, fieldname string) {
 	saveCollection(colname, coll)
 }
 
-func newCollectionStructure() Collection {
-	newColl := Collection{}
-	newColl.MaxFieldIdx = 1
-	var nf Field
-
-	nf.ID = "1"
-	nf.Name = "Field"
-	newColl.Fields = append(newColl.Fields, nf)
-	var dd = make(map[string]string)
-	dd[nf.ID] = "Record"
-	var nr Record
-	nr.ID = 1
-	nr.Data = dd
-	newColl.Records = append(newColl.Records, nr)
-	return newColl
-}
-
-func (col *Collections) addNewCollection(meta CollectionMeta) {
-	currCollMeta := col.CollectionNames
+func (cols *Collections) addNewCollection(meta CollectionMeta) {
+	currCollMeta := cols.CollectionNames
 	currMaxID, _ := strconv.Atoi(currCollMeta[len(currCollMeta)-1].ID)
 	meta.ID = strconv.Itoa(currMaxID + 1)
-	col.CollectionNames = append(currCollMeta, meta)
-	col.Data[meta.Name] = newCollectionStructure()
+	cols.CollectionNames = append(currCollMeta, meta)
+	cols.Data[meta.Name] = newCollectionStructure()
 }
 
+// AddCollection adds a collection with the provided meta.
 func AddCollection(meta CollectionMeta) {
 	current := Read(DATAFILE)
 

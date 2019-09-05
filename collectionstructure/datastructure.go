@@ -28,13 +28,15 @@ type FieldsReturn struct {
 
 // Record contains the data for a particular record.
 type Record struct {
-	ID   int               `json:"id"`
-	Data map[string]string `json:"data"`
+	ID   int        `json:"id"`
+	Data RecordItem `json:"data"`
 }
 
+//RecordReceive is the struct of a record
+// recived.
 type RecordReceive struct {
 	//ID   int               `json:"id"`
-	Data map[string]string `json:"data"`
+	Data RecordItem `json:"data"`
 }
 
 // CollectionMeta contains the meta data for a collection.
@@ -43,3 +45,6 @@ type CollectionMeta struct {
 	Name  string `json:"name"`
 	Label string `json:"label"`
 }
+
+// RecordItem is the type of a record item.
+type RecordItem map[string]string
