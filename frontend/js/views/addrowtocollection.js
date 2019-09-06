@@ -16,7 +16,7 @@ function RenderAddRowToCollection(data) {
 
     var divContainer = document.getElementById("formAddRowToCollection");
     divContainer.innerHTML = ""
-    divContainer.appendChild(h4("Add row"));
+    divContainer.appendChild(h4("Add record"));
     divContainer.appendChild(frm);
 
     RenderFieldsEditArea(fields)
