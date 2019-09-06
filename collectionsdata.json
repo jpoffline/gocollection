@@ -14,11 +14,70 @@
    "id": "3",
    "name": "hipstershops2",
    "label": "Hipster"
+  },
+  {
+   "id": "4",
+   "name": "bingo",
+   "label": "bingo"
+  },
+  {
+   "id": "5",
+   "name": "thingy",
+   "label": "Thingy"
+  },
+  {
+   "id": "6",
+   "name": "doofer",
+   "label": "Doofer"
+  },
+  {
+   "id": "7",
+   "name": "wibble",
+   "label": "Wibble"
+  },
+  {
+   "id": "8",
+   "name": "bling",
+   "label": "Bling"
   }
  ],
  "collections": {
+  "bingo": {
+   "maxfieldidx": 1,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Field"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
+    }
+   ]
+  },
+  "bling": {
+   "maxfieldidx": 1,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Field"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
+    }
+   ]
+  },
   "coffee": {
-   "maxfieldidx": 8,
+   "maxfieldidx": 9,
    "fields": [
     {
      "id": "1",
@@ -38,7 +97,11 @@
     },
     {
      "id": "8",
-     "name": "jhg"
+     "name": "manky?"
+    },
+    {
+     "id": "9",
+     "name": ""
     }
    ],
    "records": [
@@ -173,6 +236,34 @@
       "7": "",
       "8": ""
      }
+    },
+    {
+     "id": 17,
+     "data": {
+      "1": "jhg",
+      "2": "g",
+      "3": "g",
+      "7": "g",
+      "8": "g",
+      "9": ""
+     }
+    }
+   ]
+  },
+  "doofer": {
+   "maxfieldidx": 1,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Field"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
     }
    ]
   },
@@ -200,6 +291,56 @@
      "data": {
       "1": "moi",
       "2": "yes"
+     }
+    }
+   ]
+  },
+  "thingy": {
+   "maxfieldidx": 2,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Person"
+    },
+    {
+     "id": "2",
+     "name": "People"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
+    }
+   ]
+  },
+  "wibble": {
+   "maxfieldidx": 1,
+   "fields": [
+    {
+     "id": "1",
+     "name": "Field"
+    }
+   ],
+   "records": [
+    {
+     "id": 1,
+     "data": {
+      "1": "Record"
+     }
+    },
+    {
+     "id": 2,
+     "data": {
+      "1": ""
+     }
+    },
+    {
+     "id": 3,
+     "data": {
+      "1": "Data"
      }
     }
    ]

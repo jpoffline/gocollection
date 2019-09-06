@@ -17,7 +17,6 @@ function RenderFieldsEditArea(fields) {
 }
 
 function renderAddFieldToCollectionArea(id) {
-
     var frm = CreateFieldsInputForm(
         'newfieldname', [
             {
@@ -26,6 +25,7 @@ function renderAddFieldToCollectionArea(id) {
             }
         ]
     );
+    document.getElementById('newFieldNameArea').innerHTML = ""
     document.getElementById('newFieldNameArea').appendChild(frm);
     document.getElementById('newFieldNameArea').appendChild(
         button(

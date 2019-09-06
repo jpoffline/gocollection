@@ -14,19 +14,10 @@ function ShowCollectionNames(names) {
     nv.setAttribute("class", "collapse navbar-collapse");
     nv.setAttribute("id", "navbarNavAltMarkup");
     nv.appendChild(hldr);
+    divContainer.innerHTML = '';
+    divContainer.appendChild(nv)
 
-
-    var divs = div();
-    divs.setAttribute("class", "navbar navbar-expand-lg navbar-light bg-light");
     
-
-    nm = link("Collections", "#",  "navbar-brand");
-    
-
-    divs.appendChild(nm)
-    divs.appendChild(nv)
-
-    divContainer.appendChild(divs);
 }
 
 function ShowSelectedCollectionMeta(meta) {
@@ -121,3 +112,16 @@ function CreateFieldsInputForm(id, fields, deft = "") {
 
 
 
+function createNewCollection(id){
+    var newV = document.getElementById(id);
+    
+    
+
+    var bdy = {
+        "name":newV.value.toLowerCase().replace(/\s/g, ''),
+        "label":newV.value
+    }
+    console.log(bdy)
+    RouteRespondPost('/addcollection', bdy, CollectionNames)
+    
+}
