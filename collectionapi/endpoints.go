@@ -16,9 +16,7 @@ func ReturnCollectionAsTable(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: ReturnCollectionAsTable")
 	vars := mux.Vars(r)
 	key := vars["collectionname"]
-	f := coll.Read(coll.DATAFILE)
-	collection := f.PullCollection(key)
-	json.NewEncoder(w).Encode(collection.RecordsToTable())
+	json.NewEncoder(w).Encode(coll.CollectionToTable(key))
 
 }
 
@@ -32,7 +30,6 @@ func CollectionNames(w http.ResponseWriter, r *http.Request) {
 
 // AddRecordToCollection is an endpoint which adds
 // a given record to a collection.
-
 func AddRecordToCollection(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Endpoint Hit: AddRecordToCollection")
 	w.Header().Set("Content-Type", "application/json")
@@ -70,9 +67,9 @@ func UpdateFieldNames(w http.ResponseWriter, r *http.Request) {
 	var fields []coll.Field
 
 	_ = json.NewDecoder(r.Body).Decode(&fields)
-	for _, field := range fields {
-		coll.UpdateFieldName(key, field)
-	}
+
+	coll.UpdateFieldNames(key, fields)
+
 }
 
 func ReturnCollectionMeta(w http.ResponseWriter, r *http.Request) {

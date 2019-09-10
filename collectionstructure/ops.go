@@ -33,15 +33,23 @@ func (coll *Collection) NumRecords() int {
 	return len(coll.Records)
 }
 
+// Write will write the collections to the provided filename.
 func (coll *Collections) Write(filename string) {
 	file, _ := json.MarshalIndent(coll, "", " ")
 	_ = ioutil.WriteFile(filename, file, 0644)
 }
 
-func saveCollection(colname string, col Collection) {
+// Save a given collection.
+func (coll Collection) Save(colname string) {
 	current := Read(DATAFILE)
-	current.Data[colname] = col
+	current.Data[colname] = coll
 	current.Write(DATAFILE)
+}
+
+func CollectionToTable(colname string) Table {
+	f := Read(DATAFILE)
+	collection := f.PullCollection(colname)
+	return (collection.RecordsToTable())
 }
 
 // GetFields will return the fields of a provided collection.
@@ -78,7 +86,8 @@ func AddRecord(colname string, rec RecordReceive) {
 	tgtCollection := current.PullCollection(colname)
 
 	tgtCollection.addRecord(rec)
-	saveCollection(colname, tgtCollection)
+
+	tgtCollection.Save(colname)
 }
 
 // UpdateFieldName will update the field name of a give collection.
@@ -86,7 +95,15 @@ func UpdateFieldName(colname string, field Field) {
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
 	coll.modifyFieldName(field)
-	saveCollection(colname, coll)
+	coll.Save(colname)
+}
+
+// UpdateFieldNames will update the field names of the provided
+// collection name.
+func UpdateFieldNames(colname string, fields []Field) {
+	for _, field := range fields {
+		UpdateFieldName(colname, field)
+	}
 }
 
 // AddField will add a fieldname to the provided collection name.
@@ -94,7 +111,7 @@ func AddField(colname, fieldname string) {
 	current := Read(DATAFILE)
 	coll := current.PullCollection(colname)
 	coll.addField(fieldname)
-	saveCollection(colname, coll)
+	coll.Save(colname)
 }
 
 // AddCollection adds a collection with the provided meta.
